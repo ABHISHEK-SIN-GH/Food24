@@ -1,0 +1,75 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Product Detail{% endblock title %}
+{% block main-content %}
+<div class="container my-3">
+ <div class="row">
+  <div class="col-sm-6 text-center align-self-center mb-3">
+   <img id="pd-img" src="{{product.product.url}}" alt="" class="img-fluid img-thumbnail border-warning border-3 rounded">
+  </div>
+  <div class="col-sm-5 offset-sm-1">
+   <h2>Product Title: {{product.title}}</h2>
+   <hr>
+   <p>Product Description: {{product.description}} | {{product.brand}} | {{product.locality}}</p>
+   <h4 class="ms-4 mt-2">Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small></h4> <br>
+    
+   
+   {% if request.user.is_authenticated %}
+    {% if p >= 1 %}
+    {% if bc %}
+            {% if ac %}
+            <a href="{% url 'show-cart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Go to Cart</a>
+            {% else %}
+            <form action="/add-to-cart" class="d-inline">
+                <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+                <input type="hidden" name="prod_title" value="{{product.title}}" id="prod_title">
+                <input type="hidden" name="prod_sp" value="{{product.discounted_price}}" id="prod_sp">
+                <input type="hidden" name="prod_br" value="{{product.brand}}" id="prod_br">
+                <button type="submit" class="btn btn-warning shadow px-5 py-2 ms-4" >Add to Cart</button>
+                </form>
+            {% endif %}
+        {% else %}
+                <form action="/add-to-cart" class="d-inline">
+                <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+                <input type="hidden" name="prod_title" value="{{product.title}}" id="prod_title">
+                <input type="hidden" name="prod_sp" value="{{product.discounted_price}}" id="prod_sp">
+                <input type="hidden" name="prod_br" value="{{product.brand}}" id="prod_br">
+                <a href="{% url 'show-cart' %}" class="btn btn-warning shadow px-5 py-2 ms-4">Remove Product from Cart</a><br><br>
+                <strong class="ms-4 mt-2">You can only order from One Shop</strong>
+                </form>
+    {% endif %}
+    {% else %}
+    <form action="/add-to-cart" class="d-inline">
+        <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+        <input type="hidden" name="prod_title" value="{{product.title}}" id="prod_title">
+        <input type="hidden" name="prod_sp" value="{{product.discounted_price}}" id="prod_sp">
+        <input type="hidden" name="prod_br" value="{{product.brand}}" id="prod_br">
+        <button type="submit" class="btn btn-warning shadow px-5 py-2 ms-4" >Add to Cart</button>
+        </form>
+    {% endif %}
+   {% endif %}
+
+
+   
+   {% if not request.user.is_authenticated %}
+   <form action="/accounts/login/" class="d-inline">
+   <input type="hidden" name="prod_id" value="{{product.id}}" id="prod_id">
+   <input type="hidden" name="prod_title" value="{{product.title}}" id="prod_title">
+   <input type="hidden" name="prod_sp" value="{{product.discounted_price}}" id="prod_sp">
+   <input type="hidden" name="prod_br" value="{{product.brand}}" id="prod_br">
+   <button type="submit" class="btn btn-warning shadow px-5 py-2 ms-4" >Add to Cart</button>
+   </form>
+   {% endif %}
+       
+
+   <h5 class="mt-5">Available Offers</h5>
+   <ul>
+    <li>Bank Offer 5% Unlimited Cashback on Flipkart Axis Bank Credit</li>
+    <li>Special Price Get extra ₹3000 off (price inclusive of discount)</li>
+    <li>No cost EMI ₹1,667/month. Standard EMI also available</li>
+    <li>Partner Offer ₹2000 Flipkart Gift Card on Every 1000th Transaction with a new Visa Debit/Credit Card</li>
+   </ul>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

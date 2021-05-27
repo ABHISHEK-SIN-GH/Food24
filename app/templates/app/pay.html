@@ -1,0 +1,30 @@
+{% if order %}
+<form action="/pay-success/" method="POST">
+  <script
+      src="https://checkout.razorpay.com/v1/checkout.js"
+      data-key="rzp_test_PlEYg3Ud7QmRGo"
+      data-order_id="{{order.id}}"
+      data-buttontext="Pay with Razorpay"
+      data-name="Droppers-Service"
+      data-description="Delivery On Demand"
+      data-image="https://example.com/your_logo.jpg"
+      data-prefill.name="{{order.name}}"
+      data-prefill.email="{{email}}"
+      data-prefill.contact="{{phone}}"
+      data-theme.color="#F37254">
+ </script>
+<input type="hidden" custom="Hidden Element" name="hidden">
+<input  type="hidden" name="custid" value="{{custid}}" >
+</form>
+{% endif %}
+<script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+<style>
+.razorpay-payment-button{
+    display: none;
+}
+</style>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.razorpay-payment-button').click();
+});
+</script>

@@ -1,0 +1,147 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Cart{% endblock title %}
+{% block main-content %}
+<head><meta http-equiv="refresh" content="30"></head>
+<script></script>
+<div class="container my-3">
+ <div class="row">
+  <div class="col-sm-8">
+  <div class="card">
+   <div class="card-body">
+    <h1 class="display-6">CART</h1>
+    {% for cart in carts %}
+    <div class="row">
+      <hr>
+     <div class="col-sm-3 text-center align-self-center"><img src="{{cart.product.product.url}}" alt="" srcset="" class="border border-warning border-3 rounded-3 shadow-sm" height="175" width="175"> </div>
+     <div class="col-sm-9">
+      <div>
+       <h5>{{cart.product.title}}</h5>
+       <p class="mb-2 small">Description: {{cart.product.description}} | {{cart.product.brand}} | {{cart.product.locality}}</p>
+       <div class="my-3">
+        <label for="quantity">Quantity: </label>
+        <a class="minus-cart btn" pid="{{cart.product.id}}"><i class="fas fa-minus-square fa-lg text-warning"></i></a>
+          <span id="quantity">{{cart.quantity}}</span>
+        <a class="plus-cart btn" pid="{{cart.product.id}}"><i class="fas fa-plus-square fa-lg text-warning"></i></a>
+       </div> 
+       <div class="d-flex justify-content-between">
+        <button class="btn btn-sm btn-warning mr-3 mt-2 remove-cart" pid="{{cart.product.id}}">Remove item </button>
+        <p class="mb-0"><span><strong>Rs. {{cart.product.discounted_price}}</strong></span></p>
+       </div>
+       <br>
+      </div>
+     </div>
+    </div>
+    {% endfor %}
+   </div>
+   </div>
+  </div>
+  {% if customer %}
+  <div class="col-sm-4">
+    
+   <div class="card mb-3">
+    {% for ad in customer %}
+    <div class="card-body">
+     <h5>{{ad.name}}</h5>
+     <p>{{ad.locality}}, {{ad.city}}, {{ad.state}}, {{ad.zipcode}}</p>
+   </div>
+    {% endfor %}  
+    <a href="{% url 'profile' %}" class="btn btn-warning mt-1 mx-4 mb-3">Update Address</a>
+   </div>
+
+
+   <div class="card">
+    <div class="card-body">
+    <h3>The Total Amount of</h3>
+      <ul class="list-group"> 
+       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">Amount:<span>Rs. <span id="amount">{{Amt}}</span></span></li>
+       {% for c in cp %}
+       {% if forloop.first %} 
+       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0" pid="{{c.product.id}}">Shipping:<span>Rs. <span id="shippp">------</span></span></li>
+       {% endif %}
+       {% endfor %}
+       <hr>
+       <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+        <div>
+           <strong>Total</strong> <small>(including VAT)</small>
+         </div>
+         <span><strong>Rs. <strong id="total">{{totalAmt}}</strong></strong></span>
+       </li>
+      </ul>
+      <!-- <div class="d-grid"><a href="{% url 'checkout' %}" class="btn btn-primary">Place Order</button></a></div> -->
+      <div class="d-grid ">
+     
+        <div class="header">
+        </div>
+        <div class="container">
+          <form method="get" action="/checkout">
+            <!-- Location 1 -->
+            <div class="row">
+              <div class="location-label">
+              </div>
+              <div class="location-input">
+                {% for c in customer %}
+                <input type="hidden" id="location-1" name="origin" placeholder="Enter a start location..."
+                  value="{{c.locality}}">
+                  {% endfor %}
+              </div>
+            </div>
+            <!-- Location 2 -->
+            <div class="row">
+              <div class="location-label">
+              </div>
+              <div class="location-input">
+                {% for cart in carts %}
+                {% if forloop.first %}
+                <input type="hidden" id="location-2" name="destination" placeholder="Enter a last location..." value="{{cart.product.locality}}">
+                {% endif %}
+                {% endfor %}
+              </div>
+            </div>
+            <input id="output" type="hidden" class="result-table" name="destination1" ></input>
+            <!-- Submit button -->
+            <div class="row">
+              <!-- <button class="button" type="button" onclick="clearRoute();">Clear</button> -->
+           <div class="col mb-2">
+            {% for c in cp %} 
+            {% if forloop.first %} 
+            <input class="required form-check-input text-warning" id="diff" type="checkbox" onclick="calcRoute();" pid="{{c.product.id}}" required><span>  please check here to see shipping charges</span>
+            {% endif %}
+            {% endfor %}
+           </div>
+            <br>
+            <button type="submit" class="btn btn-warning mt-2" >Place Order</button>
+            {% else %}
+            <a href="{% url 'profile' %}" class="btn btn-warning mt-5 mb-2" ><small class="display-6 text-center fs-4"> please add Address</small></a><br>
+            
+            {% endif %}
+
+            </div>
+            <!-- Stats table -->
+          </form>
+          <div class="container-map" id="google-map"></div>
+        </div>
+       
+  
+       </div>
+    </div>
+   </div>
+  </div>
+  
+ </div>
+</div>
+<!-- <div class="container">
+ <div class="row">
+  <div class="col-sm-8">
+   <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">We accept</h5>
+      <img src="{% static 'app/images/payment.png' %}" alt="" class="img-fluid">
+    </div>
+  </div>
+  </div>
+ </div>
+</div> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{api_key}}&libraries=places"></script>
+{% endblock main-content %}

@@ -1,0 +1,31 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Login{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row my-3">
+  <div class="col-sm-6 offset-sm-3">
+   <h1 class="text-center text-warning display-4">DropperS</h1><hr>
+   <h3 class="text-center display-6">Login</h3>
+   <form action="" method="post" novalidate class="shadow p-5">
+    {% csrf_token %}
+    {% for fm in form %}
+    <div class="form-group">
+        {{fm.label_tag}}{{fm}}<small class="text-danger">{{fm.errors|striptags}}</small>
+     </div> <br>
+     {% endfor %}
+     <small><a href="{% url 'password_reset' %}" class="text-decoration-none text-muted">Forgot Password ?</a></small><br>
+     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+     <input type="submit" value=" Login " class="btn btn-warning mt-3 mb-3 text-center">
+    </div>
+     <div class="text-center text-warning fw-bold "><small>New to Droppers? <a href="{% url 'customerregistration' %}" class="text-primary text-decoration-none text-muted">Create an Account</a></small></div>
+    {% if form.non_field_errors %}
+    {% for error in form.non_field_errors %}
+    <p class="alert alert-danger my-3">{{error}}</p>
+    {% endfor %}
+    {% endif %}
+    </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

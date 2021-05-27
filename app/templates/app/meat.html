@@ -1,0 +1,63 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Buy Now{% endblock title %}
+{% block main-content %}
+<div class="container my-2">
+ <div class="row">
+  <div class="col-sm-12 mb-4 mt-3">
+   <div class="d-flex text-center">
+   <a href="{% url 'meat' %}" class="list-group-item list-group-item-action list-group-item-warning" aria-current="true">All</a>
+   <a href="{% url 'meatdata' 's1' %}" class="list-group-item list-group-item-action list-group-item-warning" aria-current="true">shop-1</a>
+   <a href="{% url 'meatdata' 's2' %}" class="list-group-item list-group-item-action list-group-item-warning" aria-current="true">shop-2</a>
+   </div>
+   <div class="d-flex text-center">
+    <a href="{% url 'meatdata' 'below' %}" class="list-group-item list-group-item-action list-group-item-warning" aria-current="true">Below 1000</a>
+    <a href="{% url 'meatdata' 'above' %}" class="list-group-item list-group-item-action list-group-item-warning" aria-current="true">Above 1000</a>
+    </div>
+  </div>
+  <hr>
+  <h3 class="display-6 text-center">Welcome to, Meat Shop</h3>
+  <hr>
+  <div class="col-sm-12 mt-2">
+  <div class="row d-flex justify-content-center">
+   {% for product in meats %}
+   
+   {% if product.stc == "Out of Stock" %}      
+   <div class=" d-flex align-item-center col-sm-7 mb-4 border border-warning border-3 rounded-3 p-2"  style="background-color: rgba(208, 208, 201, 0.571);;">
+    <div class="flex-shrink-0 ">
+        <a href="{% url 'product-detail' product.id %}" class="disabled btn"><img class="border border-warning border-3 rounded-3"
+                src="{{product.product.url}}" alt="" height="150" width="150"></a>
+    </div>
+    <div class="flex-grow-1 ms-2">
+                <div class="display-6 mb-3">{{product.title}}</div>
+                <div class="fw-normal">{{product.description}} | <span class="fw-light" >{{product.brand}}</span></div> <br>
+                <div class="fw-bold">Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'product-detail' product.id %}" class="disabled btn btn-warning mt-3">{{product.stc}}</a>
+            </div>
+        </div>
+    </div>
+   </div>
+   {% else %}
+   <div class="d-flex  align-item-center col-sm-7 mb-4 border border-warning border-3 rounded-3 p-2"  style="background-color: rgba(208, 208, 201, 0.571);;">
+    <div class="flex-shrink-0 ">
+        <a href="{% url 'product-detail' product.id %}" class="btn"><img class="border border-warning border-3 rounded-3"
+                src="{{product.product.url}}" alt="" height="150" width="150"></a>
+    </div>
+    <div class="flex-grow-1 ms-2">
+                <div class="display-6 mb-3">{{product.title}}</div>
+                <div class="fw-normal">{{product.description}} | <span class="fw-light" >{{product.brand}}</span></div> <br>
+                <div class="fw-bold">Rs. {{product.discounted_price}} <small class="fw-light text-decoration-line-through">{{product.selling_price}}</small>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a href="{% url 'product-detail' product.id %}" class="btn btn-warning mt-3">Order Now</a>
+            </div>
+        </div>
+    </div>
+   </div>
+   {% endif %}
+   {% endfor %}
+  </div>
+ </div>
+</div>
+</div>
+{% endblock main-content %}

@@ -1,0 +1,60 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Orders{% endblock title %}
+{% block main-content %}
+<head>
+    <meta http-equiv="refresh" content="15">
+</head>
+<div class="container my-4">
+ <div class="row">
+ <h3 class="display-6">Welcome, <span class="capitialize">{{request.user.first_name}}</h3>
+  <div class="col-sm-2 border-end mt-1">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'orders' %}" class="btn btn-warning">Orders</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-9 offset-sm-1 ">    
+    {% for o in op %}          
+   <div class=" row shadow-sm border border-3 border-warning rounded-pill p-2 mb-2 mt-2 ">
+       <div class="col-sm-2 align-self-center d-flex justify-content-center"><img src="{{o.product.product.url}}" alt="" class="img-fluid border border-warning border-3 rounded-3 h-25" height="150" width="150"></div>
+       <div class="col-sm-6 mt-1">
+           <p><span class="fst-italic fw-bold">Product:-</span> {{o.product.title}}<br>
+            <span class="fst-italic fw-bold">Description:-</span> {{o.product.description}} | {{o.product.brand}}<br>
+            <span class="fst-italic fw-bold">Quantity:-</span> {{o.quantity}}<br>
+            <span class="fst-italic fw-bold">Price:-</span> {{o.total_cost}}</p>
+       </div>
+       
+    <div class="col-sm-3 offset-sm-1 text-center"><p class="fs-5"><span class="fw-bold">status:</span> {{o.status}}</p>
+    {% if o.status == 'Accepted' %}
+        <div class="progress rounded-pill">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 20%;" aria-volumenow="20" aria-volumemin="0" aria-volumemax="100"></div>
+        </div>
+    {% endif %}
+    {% if o.status == 'Packed' %}
+    <div class="progress rounded-pill">
+        <div class="progress-bar  bg-warning" role="progressbar" style="width: 40%;" aria-volumenow="40" aria-volumemin="0" aria-volumemax="100"></div>
+    </div>
+    {% endif %}
+    {% if o.status == 'On The Way' %}
+    <div class="progress rounded-pill">
+        <div class="progress-bar  bg-warning" role="progressbar" style="width: 70%;" aria-volumenow="70" aria-volumemin="0" aria-volumemax="100"></div>
+    </div>
+    {% endif %}
+    {% if o.status == 'Delivered' %}
+    <div class="progress rounded-pill">
+        <div class="progress-bar  bg-success" role="progressbar" style="width: 100%;" aria-volumenow="100" aria-volumemin="0" aria-volumemax="100"></div>
+    </div>
+    {% endif %}
+    {% if o.status == 'cancel' %}
+    <div class="progress rounded-pill">
+        <div class="progress-bar bg-danger" role="progressbar" style="width: 100%;" aria-volumenow="100" aria-volumemin="0" aria-volumemax="100"></div>
+    </div>
+    {% endif %}
+    </div>
+
+   </div>
+   {% endfor %}
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

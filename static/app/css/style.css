@@ -1,0 +1,63 @@
+.owl-carousel .item{
+ /* border: 1px solid black; */
+ font-size: 24px;
+ text-align: center;
+ margin-top: 20px;;
+}
+
+.owl-next{
+ float:right;
+}
+.owl-prev{
+ float:left;
+}
+.owl-prev span{
+ font-size: 24px;
+ font-weight: bold;
+}
+.owl-next span{
+ font-size: 24px;
+ font-weight: bold;
+}
+.form-control:focus {
+    border-color: #fd7e14!important;
+    box-shadow: 0 0 0 0.3rem #fd7d144c!important;
+   
+} 
+.form-control{
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+         border-radius: 0;
+} 
+
+a{
+    text-decoration: none;
+}
+
+#overlay{
+  position: absolute; /* Sit on top of the page content */
+  display: block; /* Hidden by default */
+  width: 100%; /* Full width (cover the whole page) */
+  height: 610px; /* Full height (cover the whole page) */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(30, 30, 29, 0.571); /* Black background with opacity */
+  z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+  cursor: pointer;
+}
+
+#navbar-boo{
+    z-index: 3;
+    padding: 2vh;
+}
+
+#logo-im{
+    height: 4.5vh;
+}
+
+#pd-img{
+    height: 65vh!important;
+    width: 65vh!important;
+}

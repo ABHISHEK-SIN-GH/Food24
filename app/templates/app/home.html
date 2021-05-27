@@ -1,0 +1,107 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Home{% endblock title %}
+
+{% block banner_slider %}
+<!--Banner Slider-->
+ <div id="overlay">
+   <h1 class="display-4 text-center mt-5 fw-normal font-monospace text-decoration-underline fst-italic" style="margin-top:200px!important; color: orange;">DropperS</h1>
+  <h3 class="display-5 text-center text-warning mt-3">On Demand <span class="fw-normal font-monospace">Delivery</span> Services</h3>
+<h5 class="display-6 text-center fw-normal mt-2 text-light">Get Fastest Delivery<br><span class="fst-italic ">On Bhilai-Durg</span></h5>
+</div>
+ <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="{% static 'app/images/banner/b4.jpg' %}" class="d-block h-10 w-100" height="550px" alt="..."> 
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/b2.jpg' %}" class="d-block h-10 w-100" height="550px" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="{% static 'app/images/banner/b3.jpg' %}" class="d-block h-10 w-100" height="550px" alt="...">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </a>
+</div>
+<!-- End Banner Slider -->
+{% endblock banner_slider %}
+
+{% block livesale %}
+{% endblock livesale %}
+
+{% block main-content %}
+<!-- 1st Product Slider -->
+<div class="m-1">
+<div class="shadow p-3 mb-2 mt-2 rounded" style="background-color: orange;"><h2 class="display-6 text-center text-dark fst-italic">-: Vegitables :-</h2></div>
+ <!-- Slider 1 -->
+ <div class="owl-carousel" id="slider1">
+  {% for b in bottomwears %}  
+  {% if b.stc == "Out of Stock" %}
+  <a href="{% url 'product-detail' b.id %}" class="disabled btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{b.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{b.title}}</span><br><span class="fs-5">Rs. {{b.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{b.selling_price}}</span><br><span class="btn btn-warning">{{b.stc}}</span></div></a>
+  {% else %}
+  <a href="{% url 'product-detail' b.id %}" class="btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{b.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{b.title}}</span><br><span class="fs-5">Rs. {{b.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{b.selling_price}}</span><br><span class="btn btn-warning">{{b.stc}}</span></div></a>
+  {% endif %}
+  {% endfor %} 
+</div>
+</div><br
+<!-- End 1st Product Slider -->
+
+<!-- 2nd Product Slider -->
+<div class="mx-1">
+  <div class="shadow p-3 mb-2  mt-2  rounded" style="background-color: orange;" ><h2 class="display-6 text-center fst-italic">-: Fruits :-</h2></div>
+ <!-- Slider 2 -->
+ <div class="owl-carousel" id="slider2">
+   {% for t in topwears %}  
+   {% if t.stc == "Out of Stock" %}
+   <a href="{% url 'product-detail' t.id %}" class="disabled btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{t.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{t.title}}</span><br><span class="fs-5">Rs. {{t.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{t.selling_price}}</span><br><span class="btn btn-warning">{{t.stc}}</span></div></a>
+   {% else %}
+   <a href="{% url 'product-detail' t.id %}" class="btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{t.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{t.title}}</span><br><span class="fs-5">Rs. {{t.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{t.selling_price}}</span><br><span class="btn btn-warning">{{t.stc}}</span></div></a>
+   {% endif %}
+   {% endfor %} 
+ </div>
+</div><br><br>
+<!-- End 2nd Product Slider -->
+
+<!-- 3rd Product Slider -->
+<div class="mx-1">
+  <div class="shadow p-3 mb-2  mt-2 rounded" style="background-color: orange;" ><h2 class="display-6 text-center fst-italic">-: Meats & SeaFood :-</h2></div>
+  <!-- Slider 3 -->
+  <div class="owl-carousel" id="slider3">
+   {% for l in laptop %}
+   {% if l.stc == "Out of Stock" %}
+   <a href="{% url 'product-detail' l.id %}" class="disabled btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{l.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{l.title}}</span><br><span class="fs-5">Rs. {{l.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{l.selling_price}}</span><br><span class="btn btn-warning">{{l.stc}}</span></div></a>
+   {% else %}
+   <a href="{% url 'product-detail' l.id %}" class="btn border border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{l.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{l.title}}</span><br><span class="fs-5">Rs. {{l.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{l.selling_price}}</span><br><span class="btn btn-warning">{{l.stc}}</span></div></a>
+   {% endif %}
+   {% endfor %} 
+  </div>
+ </div><br><br>
+ <!-- End 3rd Product Slider -->
+
+ <!-- 4th Product Slider -->
+<div class="mx-1">
+  <div class="shadow p-3 mb-2 mt-2  rounded" style="background-color: orange;" ><h2 class="display-6 text-center fst-italic">-: Breads & Cakes :-</h2></div>
+  <!-- Slider 4 -->
+  <div class="owl-carousel" id="slider4">
+
+   {% for m in mobile %}  
+   {% if m.stc == "Out of Stock" %}
+   <a href="{% url 'product-detail' m.id%}" class="disabled btn border  border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{m.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{m.title}}</span><br><span class="fs-5">Rs.  {{m.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{m.selling_price}}</span> <br><span class="btn btn-warning">{{m.stc}}</span></div></a>
+   {% else %}
+   <a href="{% url 'product-detail' m.id%}" class="btn border  border-white border-3 round-3" style="background-color: rgba(208, 208, 201, 0.571);"><div class="item"><img src="{{m.product.url}}" class="border border-white border-2 rounded" alt="" height="150px"><span class="fw-normal fs-5">{{m.title}}</span><br><span class="fs-5">Rs.  {{m.discounted_price}} </span><span class="fs-6 text-decoration-line-through text-muted">{{m.selling_price}}</span> <br><span class="btn btn-warning">{{m.stc}}</span></div></a>
+   {% endif %}
+   {% endfor %} 
+  
+     
+  </div>
+ </div>
+ <!-- End 4rd Product Slider -->
+{% endblock main-content %}
+
