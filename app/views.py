@@ -425,7 +425,7 @@ def pay(request):
      email = request.user.email
     #  print(name,amount,custid,locality,phone,email)
      notes = {'Shipping address': locality}
-     client = razorpay.Client(auth=('rzp_test_PlEYg3Ud7QmRGo','xELzeSakL6gWRrNM2Of1wTBl'))  
+     client = razorpay.Client(auth=('keyId','KeySecret'))  
      payment = client.order.create({'amount':amount, 'currency':'INR','payment_capture':1,'notes':notes})
     #  print(payment)
      pay_id = Payment(name=name,amount=dam,payment_id=payment['id']).save()
